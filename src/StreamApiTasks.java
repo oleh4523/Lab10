@@ -113,7 +113,10 @@ public class StreamApiTasks {
 
     static double totalRevenue(List<Order> orders) {
         // TODO: task 5
-        return 0.0;
+        return orders.stream()
+                .filter(order -> order.status() != OrderStatus.CANCELLED)
+                .mapToDouble(Order::totalValue)
+                .sum();
     }
 
     static OptionalDouble averageDeliveredOrderValue(List<Order> orders) {
