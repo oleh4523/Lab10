@@ -129,7 +129,8 @@ public class StreamApiTasks {
 
     static Map<OrderStatus, Long> countByStatus(List<Order> orders) {
         // TODO: task 7
-        return Map.of();
+        return orders.stream()
+                .collect(Collectors.groupingBy(Order::status, Collectors.counting()));
     }
 
     static Map<String, Double> revenueByCategory(List<Order> orders) {
