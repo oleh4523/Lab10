@@ -165,7 +165,9 @@ public class StreamApiTasks {
 
     static Map<Boolean, List<Order>> partitionActiveOrdersByValue(List<Order> orders, double threshold) {
         // TODO: task 10
-        return Map.of();
+        return orders.stream()
+                .filter(order -> order.status() != OrderStatus.CANCELLED)
+                .collect(Collectors.partitioningBy(order -> order.totalValue() >= threshold));
     }
 
     static Optional<Order> mostExpensiveDeliveredOrder(List<Order> orders) {
